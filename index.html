@@ -2,99 +2,128 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head lang="en">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <script type="text/javascript" src="js/jquery-1.11.1.js"    		rel="script"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"    		rel="script"></script>
-    <script type="text/javascript" src="js/count.js"            		rel="script"></script>
-	<script type="text/javascript" src="js/jquery.i18n.properties.js" 	rel="script"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.js" rel="script"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js" rel="script"></script>
+    <script type="text/javascript" src="js/count.js" rel="script"></script>
     <title></title>
 </head>
 <body>
     <div class="page-header">
-        <h1>Policz prędkość biegania</h1>
+        <div class="container-fluid">
+            <h1>Count running speed</h1>
+        </div>
     </div>
-    <form class="form-horizontal" method="post" role="form">
-        <div class="form-group">
-            <label class="col-sm-1 control-label">distance</label>
-            <div class="input-group col-sm-2">
-                <input id="distance" class="resetThis form-control" name="distance" type="text" placeholder="Dystance"/>
-                <span class="input-group-addon">m</span>
-            </div>
-        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <form class="form-horizontal" method="post" role="form">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Distance</label>
+                    <div class="input-group col-sm-2">
+                        <input id="distance" class="resetThis form-control" name="distance" type="text" placeholder="Distance"/>
+                        <span class="input-group-addon">m</span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label class="col-sm-1 control-label">Days</label>
-            <div class="input-group col-sm-1">
-                <input id="days" class="resetThis form-control" name="days" type="text" placeholder="Days"/>
-                <span class="input-group-addon">d</span>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Days</label>
+                    <div class="input-group col-sm-2">
+                        <input id="days" class="resetThis form-control" name="days" type="text" placeholder="Days"/>
+                        <span class="input-group-addon">d</span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label class="col-sm-1 control-label">Hours</label>
-            <div class="input-group col-sm-1">
-                <input id="hours" class="resetThis form-control" name="hours" type="text" placeholder="Hours"/>
-                <span class="input-group-addon">h</span>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Hours</label>
+                    <div class="input-group col-sm-2">
+                        <input id="hours" class="resetThis form-control" name="hours" type="text" placeholder="Hours"/>
+                        <span class="input-group-addon">h</span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label class="col-sm-1 control-label">Minutes</label>
-            <div class="input-group col-sm-1">
-                <input id="minutes" class="resetThis form-control" name="minutes" type="text" placeholder="Minutes"/>
-                <span class="input-group-addon">m</span>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Minutes</label>
+                    <div class="input-group col-sm-2">
+                        <input id="minutes" class="resetThis form-control" name="minutes" type="text" placeholder="Minutes"/>
+                        <span class="input-group-addon">m</span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label class="control-label col-sm-1">Seconds</label>
-            <div class="input-group col-sm-4">
-                <div class="form-inline">
-                    <div class="input-group col-sm-3" >
+                <div class="form-group">
+                    <label class="control-label col-sm-1">Seconds</label>
+                    <div class="input-group col-sm-2">
                         <input id="seconds" class="resetThis form-control" name="seconds" type="text" placeholder="Seconds"/>
                         <span class="input-group-addon">s</span>
                     </div>
-                    <div class="input-group col-sm-offset-3">
-                            <button id="count_distance" class="btn btn-default">Count</button>
+                </div>
+                <div class="form-group">
+                    <label class="control-label sr-only col-sm-1">Count</label>
+                    <div class="input-group">
+                        <button id="count_distance" class="btn btn-default">Count</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <form class="form-horizontal" method="post" role="form">
+                <div class="form-group">
+                    <label class="control-label col-sm-1">Speed</label>
+                    <div class="input-group col-sm-2">
+                            <div class="input-group">
+                                <input id="speed" class="resetThis form-control" name="speed" type="text" placeholder="Speed"/>
+                                <span class="input-group-addon">km/h</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label sr-only col-sm-1">Count</label>
+                    <div class="input-group">
+                        <button id="count_speed" class="btn btn-default">Count</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <form class="form-horizontal" method="post" role="form">
+                <div class="form-group">
+                    <label class="control-label col-sm-1">Tempo</label>
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group col-sm-3">
+                                        <input id="pace_minutes" class="resetThis form-control" name="pace_minutes" type="text" placeholder="minutes"/>
+                                        <span class="input-group-addon">min</span>
+                                </div>
+                                <div class="input-group col-sm-3">
+                                    <input id="pace_seconds" class="resetThis form-control" name="pace_seconds" type="text" placeholder="seconds"/>
+                                    <span class="input-group-addon">s/km</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label sr-only col-sm-1">Count</label>
+                    <div class="input-group">
+                        <button id="count_pace" class="btn btn-default">Count</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label sr-only col-sm-1">Reset form</label>
+                    <div class="input-group">
+                        <button class="btn btn-default btn-reset">Reset form</button>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
-    <form class="form-horizontal" method="post" role="form">
-        <div class="form-group">
-            <label class="control-label col-sm-1">Speed</label>
-            <div class="input-group">
-                <div class="form-inline">
-                    <div class="input-group col-sm-9">
-                        <input id="speed" class="resetThis form-control" name="speed" type="text" placeholder="Speed"/>
-                        <span class="input-group-addon">km/h</span>
-                    </div>
-                    <button id="count_speed" class="btn btn-default">Count</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    <form class="form-horizontal" method="post" role="form">
-        <div class="form-group">
-            <label class="control-label col-sm-1">Tempo</label>
-            <div class="input-group col-sm-4">
-                <div class="form-inline">
-                    <div class="input-group col-sm-3">
-                        <input id="pace_minutes" class="resetThis form-control" name="pace_minutes" type="text" placeholder="minutes"/>
-                        <span class="input-group-addon">min</span>
-                    </div>
-                    <div class="input-group col-sm-3">
-                        <input id="pace_seconds" class="resetThis form-control" name="pace_seconds" type="text" placeholder="seconds"/>
-                        <span class="input-group-addon">s/km</span>
-                    </div>
-                    <button id="count_pace" class="btn btn-default">Count</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    <button class="btn btn-default btn-reset col-sm-offset-1">Reset form</button>
+    </div><!-- content-->
 </body>
 </html>

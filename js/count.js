@@ -84,17 +84,6 @@
 jQuery(document).ready( function($) {
 	var userLang = navigator.language || navigator.userLanguage;
 	var lang = userLang.split('-')[0];
-	loadBundles(userLang);
-
-	// configure language combo box
-	$('#lang').change(function() {
-		var selection = $('#lang option:selected').val();
-		loadBundles(selection != 'browser' ? selection : null);
-		$('#langBrowser').empty();
-		if(selection == 'browser') {
-			$('#langBrowser').text('('+$.i18n.browserLang()+')');
-		}
-	});
 
     $("button#count_distance").click(function (e) {
         e.preventDefault();
