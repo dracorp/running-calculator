@@ -1,138 +1,269 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head lang="en">
+    <style rel="stylesheet" type="text/css" href="css/bootstrap.min.css"></style>
+    <style rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"></style>
+    <script src="js/jquery-1.11.1.js"></script>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <script type="text/javascript" src="js/jquery-1.11.1.js" rel="script"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js" rel="script"></script>
-    <script type="text/javascript" src="js/count.js" rel="script"></script>
-    <title></title>
 </head>
 <body>
-    <div class="page-header">
-        <div class="container-fluid">
-            <h1>Count running speed</h1>
-        </div>
-    </div>
+<style type="text/css">
+    span.input-group-addon {
+        font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
+    }
+</style>
+
+<script type="text/javascript">// <![CDATA[
+(function($) {
+    $.extend({
+        count_distance: function () {
+            // input
+            var distance    = parseFloat( $("#distance").val().replace(",",".").replace(" ","") ) || 0;
+            var days        = parseFloat( $("#days").val() ) || 0;
+            var hours       = parseFloat( $("#hours").val() ) || 0;
+            var minutes     = parseFloat( $("#minutes").val() ) || 0;
+            var seconds     = parseFloat( $("#seconds").val() ) || 0;
+
+            var totalSeconds        = days*3600*24 + hours*3600 + minutes*60 + seconds;
+            var floatHours          = totalSeconds / 3600;
+            var kilometersDistance  = distance/1000;
+
+            // count pace
+            var secondsPerKm    = Math.round(totalSeconds/kilometersDistance);
+            var minutesPerKm    = Math.floor(secondsPerKm/60);
+            var rest            = secondsPerKm - (minutesPerKm*60);
+
+            // output
+            $("input#pace_minutes").val(minutesPerKm);
+            $("input#pace_seconds").val(rest);
+
+            // count speed
+            var speed = Math.round(kilometersDistance/floatHours*1000)/1000;
+            $("input#speed").val(speed);
+
+        },
+        count_speed: function() {
+            // input
+            var distance    = parseFloat( $("#distance").val().replace(",",".").replace(" ","") ) || 0;
+            var speedKmH    = parseFloat( $("#speed").val().replace(",",".").replace(" ","") ) || 0;
+
+            // speed -> pace
+            var a = 1 / speedKmH * 60;
+            var pace_minutes = Math.floor(a);
+            var pace_seconds = ((a - pace_minutes) * 60);
+            var pace_sseconds = Math.round((pace_seconds%1)*100);
+            pace_seconds = Math.round(pace_seconds);
+            $("input#pace_minutes").val(pace_minutes);
+            $("input#pace_seconds").val(pace_seconds);
+            $("input#pace_sseconds").val(pace_sseconds);
+
+            var speedMPerS = speedKmH/3600*1000;
+            var totalSeconds = Math.round(distance/speedMPerS);
+            var day = Math.floor(totalSeconds/24/3600);
+            totalSeconds = totalSeconds%(24*3600);
+
+            var hour = Math.floor(totalSeconds/3600);
+            totalSeconds = totalSeconds%3600;
+
+            var minute = Math.floor(totalSeconds/60);
+            var rest = Math.floor(totalSeconds%60);
+
+            $("input#days").val(day);
+            $("input#hours").val(hour);
+            $("input#minutes").val(minute);
+            $("input#seconds").val(rest);
+
+
+
+        },
+        count_pace: function() {
+            // input
+            var paceMinutes = parseFloat( $("#pace_minutes").val() ) || 0;
+            var paceSeconds = parseFloat( $("#pace_seconds").val() ) || 0;
+            var distance    = parseFloat( $("#distance").val().replace(",",".").replace(" ","") ) || 0;
+
+            // pace -> speed
+            var totalSeconds = paceMinutes*60 + paceSeconds;
+            var d = 1/(totalSeconds/3600);
+            var speed = Math.round(d*1000)/1000;
+
+            $("input#speed").val(speed);
+
+            // pace -> time
+            var time = totalSeconds*distance/1000; // s/km
+            var days = Math.floor(time/(24*3600));
+            time = time%(24*3600);
+            var hours = Math.floor(time/3600);
+            time = time%(3600);
+            var minutes = Math.floor(time/60);
+            var rest = time%60;
+
+            $("input#days").val(days);
+            $("input#hours").val(hours);
+            $("input#minutes").val(minutes);
+            $("input#seconds").val(rest);
+        }
+    });
+})(jQuery);
+
+jQuery(document).ready( function($) {
+    var userLang = navigator.language || navigator.userLanguage;
+    var lang = userLang.split('-')[0];
+
+    $("button#count_distance").click(function (e) {
+        e.preventDefault();
+        $.count_distance(e);
+    });
+    $("#distance,#days,#hours,#minutes,#seconds").keyup(
+            function() {
+                $.count_distance();
+            }
+    );
+
+    $("button#count_speed").click(function (e) {
+        e.preventDefault();
+        $.count_speed();
+    });
+    $("#speed").keyup(
+            function () {
+                $.count_speed();
+            }
+    );
+    $("button#count_pace").click(function (e) {
+        e.preventDefault();
+        $.count_pace();
+    });
+    $("#pace_minutes,#pace_seconds").keyup(
+            function () {
+                $.count_pace();
+            }
+    );
+
+    $(".btn-reset").on("click", function(){
+        $(".resetThis").val("");
+    });
+});
+// ]]></script>
+
+<div class="page-header">
     <div class="container-fluid">
-        <div class="row">
-            <form class="form-horizontal" method="post" role="form">
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Distance</label>
-                    <div class="input-group col-sm-2">
-                        <input id="distance" class="resetThis form-control" name="distance" type="text" placeholder="Distance"/>
-                        <span class="input-group-addon">m</span>
-                    </div>
+        <h1>Count running speed</h1>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <form class="form-horizontal" method="post" role="form">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">Distance</label>
+                <div class="input-group col-sm-2">
+                    <input id="distance" class="resetThis form-control" name="distance" type="text" placeholder="Distance"/>
+                    <span class="input-group-addon">m</span>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Days</label>
-                    <div class="input-group col-sm-2">
-                        <input id="days" class="resetThis form-control" name="days" type="text" placeholder="Days"/>
-                        <span class="input-group-addon">d</span>
-                    </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">Days</label>
+                <div class="input-group col-sm-2">
+                    <input id="days" class="resetThis form-control" name="days" type="text" placeholder="Days"/>
+                    <span class="input-group-addon">d</span>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Hours</label>
-                    <div class="input-group col-sm-2">
-                        <input id="hours" class="resetThis form-control" name="hours" type="text" placeholder="Hours"/>
-                        <span class="input-group-addon">h</span>
-                    </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">Hours</label>
+                <div class="input-group col-sm-2">
+                    <input id="hours" class="resetThis form-control" name="hours" type="text" placeholder="Hours"/>
+                    <span class="input-group-addon">h</span>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Minutes</label>
-                    <div class="input-group col-sm-2">
-                        <input id="minutes" class="resetThis form-control" name="minutes" type="text" placeholder="Minutes"/>
-                        <span class="input-group-addon">m</span>
-                    </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">Minutes</label>
+                <div class="input-group col-sm-2">
+                    <input id="minutes" class="resetThis form-control" name="minutes" type="text" placeholder="Minutes"/>
+                    <span class="input-group-addon">m</span>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="control-label col-sm-1">Seconds</label>
-                    <div class="input-group col-sm-2">
-                        <input id="seconds" class="resetThis form-control" name="seconds" type="text" placeholder="Seconds"/>
-                        <span class="input-group-addon">s</span>
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-sm-1">Seconds</label>
+                <div class="input-group col-sm-2">
+                    <input id="seconds" class="resetThis form-control" name="seconds" type="text" placeholder="Seconds"/>
+                    <span class="input-group-addon">s</span>
                 </div>
-                <!--<div class="form-group">
-                    <label class="control-label col-sm-1">Hundredths</label>
-                    <div class="input-group col-sm-2">
-                        <input id="hundredths" class="resetThis form-control" name="hundredths" type="text" placeholder="Hundredths"/>
-                        <span class="input-group-addon">.s</span>
-                    </div>
-                </div>-->
-                <div class="form-group">
-                    <label class="control-label sr-only col-sm-1">Count</label>
-                    <button id="count_distance" class="btn btn-default">Count</button>
+            </div>
+            <!--<div class="form-group">
+                <label class="control-label col-sm-1">Hundredths</label>
+                <div class="input-group col-sm-2">
+                    <input id="hundredths" class="resetThis form-control" name="hundredths" type="text" placeholder="Hundredths"/>
+                    <span class="input-group-addon">.s</span>
                 </div>
-            </form>
-        </div>
-        <div class="row">
-            <form class="form-horizontal" method="post" role="form">
-                <div class="form-group">
-                    <label class="control-label col-sm-1">Speed</label>
-                    <div class="input-group col-sm-2">
-                            <div class="input-group">
-                                <input id="speed" class="resetThis form-control" name="speed" type="text" placeholder="Speed"/>
-                                <span class="input-group-addon">km/h</span>
+            </div>-->
+            <div class="form-group">
+                <label class="control-label sr-only col-sm-1">Count</label>
+                <button id="count_distance" class="btn btn-default">Count</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form class="form-horizontal" method="post" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-1">Speed</label>
+                <div class="input-group col-sm-2">
+                        <div class="input-group">
+                            <input id="speed" class="resetThis form-control" name="speed" type="text" placeholder="Speed"/>
+                            <span class="input-group-addon">km/h</span>
+                        </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label sr-only col-sm-1">Count</label>
+                <div class="input-group">
+                    <button id="count_speed" class="btn btn-default">Count</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form class="form-horizontal" method="post" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-1">Pace</label>
+                <div class="col-md-4">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="input-group col-sm-3">
+                                    <input id="pace_minutes" class="resetThis form-control" name="pace_minutes" type="text" placeholder="minutes"/>
+                                    <span class="input-group-addon">min</span>
                             </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label sr-only col-sm-1">Count</label>
-                    <div class="input-group">
-                        <button id="count_speed" class="btn btn-default">Count</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="row">
-            <form class="form-horizontal" method="post" role="form">
-                <div class="form-group">
-                    <label class="control-label col-sm-1">Pace</label>
-                    <div class="col-md-4">
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <div class="input-group col-sm-3">
-                                        <input id="pace_minutes" class="resetThis form-control" name="pace_minutes" type="text" placeholder="minutes"/>
-                                        <span class="input-group-addon">min</span>
-                                </div>
-                                <div class="input-group col-sm-3">
-                                    <input id="pace_seconds" class="resetThis form-control" name="pace_seconds" type="text" placeholder="seconds"/>
-                                    <span class="input-group-addon">s</span>
-                                </div>
-                                <!--<div class="input-group col-sm-3">
-                                    <input id="pace_hundredths" class="resetThis form-control" name="pace_hundredths" type="text" placeholder="hundredths"/>
-                                    <span class="input-group-addon">.s/km</span>
-                                </div>-->
+                            <div class="input-group col-sm-3">
+                                <input id="pace_seconds" class="resetThis form-control" name="pace_seconds" type="text" placeholder="seconds"/>
+                                <span class="input-group-addon">s</span>
                             </div>
+                            <!--<div class="input-group col-sm-3">
+                                <input id="pace_hundredths" class="resetThis form-control" name="pace_hundredths" type="text" placeholder="hundredths"/>
+                                <span class="input-group-addon">.s/km</span>
+                            </div>-->
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label sr-only col-sm-1">Count</label>
-                    <div class="input-group">
-                        <button id="count_pace" class="btn btn-default">Count</button>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label sr-only col-sm-1">Count</label>
+                <div class="input-group">
+                    <button id="count_pace" class="btn btn-default">Count</button>
                 </div>
-            </form>
-        </div>
-        <div class="row">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="control-label sr-only col-sm-1">Reset form</label>
-                    <div class="input-group">
-                        <button class="btn btn-default btn-reset">Reset form</button>
-                    </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label sr-only col-sm-1">Reset form</label>
+                <div class="input-group">
+                    <button class="btn btn-default btn-reset">Reset form</button>
                 </div>
             </div>
         </div>
-    </div><!-- content-->
+    </div>
+</div><!-- content-->
 </body>
 </html>
