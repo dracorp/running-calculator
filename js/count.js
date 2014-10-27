@@ -16,9 +16,9 @@
             var kilometersDistance  = distance/1000;
 
             // count pace
-            var secondsPerKm    = Math.round(totalSeconds/kilometersDistance);
+            var secondsPerKm    = totalSeconds/kilometersDistance;
             var minutesPerKm    = Math.floor(secondsPerKm/60);
-            var rest            = secondsPerKm - (minutesPerKm*60);
+            var rest            = Math.round((secondsPerKm - minutesPerKm*60)*100)/100;
 
             // output
             $("input#pace_minutes").val(minutesPerKm);
@@ -39,7 +39,7 @@
             var pace_minutes = Math.floor(a);
             var pace_seconds = ((a - pace_minutes) * 60);
             var pace_sseconds = Math.round((pace_seconds%1)*100);
-            pace_seconds = Math.round(pace_seconds);
+            pace_seconds = Math.round((pace_seconds+pace_sseconds/100)*100)/100;
             $("input#pace_minutes").val(pace_minutes);
             $("input#pace_seconds").val(pace_seconds);
             $("input#pace_sseconds").val(pace_sseconds);
@@ -83,7 +83,7 @@
             var hours = Math.floor(time/3600);
             time = time%(3600);
             var minutes = Math.floor(time/60);
-            var rest = time%60;
+            var rest = Math.round((time%60)*100)/100;
 
             $("input#days").val(days);
             $("input#hours").val(hours);
