@@ -1,15 +1,43 @@
-/**
- * Created by dracorp on 20.10.14.
- */
 (function($) {
+    /**
+     * global pattern for distance, checks if it is in km
+      * @type {RegExp}
+     */
+    var kilometers = new RegExp("(k|km)$");
+    /**
+     * global variables from input field
+     */
+    var distance, days, hours, minutes, seconds, speedKmH, paceMinutes, paceSeconds;
+
+    /**
+     * Reads data from input field
+     * @private
+     */
+    function _read_data(){
+        "use strict";
+        distance    = $("#distance").val().replace(",",".").replace(" ","") || 0;
+        if(kilometers.test(distance)){
+            distance=parseFloat(distance)*1000;
+        } else {
+            distance=parseFloat(distance);
+        }
+        days        = parseFloat( $("#days").val() ) || 0;
+        hours       = parseFloat( $("#hours").val() ) || 0;
+        minutes     = parseFloat( $("#minutes").val() ) || 0;
+        seconds     = parseFloat( $("#seconds").val() ) || 0;
+
+        speedKmH    = parseFloat( $("#speed").val().replace(",",".").replace(" ","") ) || 0;
+
+        paceMinutes = parseFloat( $("#pace_minutes").val() ) || 0;
+        paceSeconds = parseFloat( $("#pace_seconds").val() ) || 0;
+    }
+
     $.extend({
-        count_distance: function () {
-            // input
-            var distance    = parseFloat( $("#distance").val().replace(",",".").replace(" ","") ) || 0;
-            var days        = parseFloat( $("#days").val() ) || 0;
-            var hours       = parseFloat( $("#hours").val() ) || 0;
-            var minutes     = parseFloat( $("#minutes").val() ) || 0;
-            var seconds     = parseFloat( $("#seconds").val() ) || 0;
+        /**
+         * count distance to speed, pace
+         */
+        count_distance: function() {
+            _read_data();
 
             var totalSeconds        = days*3600*24 + hours*3600 + minutes*60 + seconds;
             var floatHours          = totalSeconds / 3600;
@@ -29,10 +57,11 @@
             $("input#speed").val(speed);
 
         },
+        /**
+         * count speed to pace or time
+         */
         count_speed: function() {
-            // input
-            var distance    = parseFloat( $("#distance").val().replace(",",".").replace(" ","") ) || 0;
-            var speedKmH    = parseFloat( $("#speed").val().replace(",",".").replace(" ","") ) || 0;
+            _read_data();
 
             // speed -> pace
             var a = 1 / speedKmH * 60;
@@ -59,15 +88,12 @@
             $("input#hours").val(hour);
             $("input#minutes").val(minute);
             $("input#seconds").val(rest);
-
-
-
         },
+        /**
+         * count pace to speed or time
+         */
         count_pace: function() {
-            // input
-            var paceMinutes = parseFloat( $("#pace_minutes").val() ) || 0;
-            var paceSeconds = parseFloat( $("#pace_seconds").val() ) || 0;
-            var distance    = parseFloat( $("#distance").val().replace(",",".").replace(" ","") ) || 0;
+            _read_data();
 
             // pace -> speed
             var totalSeconds = paceMinutes*60 + paceSeconds;
@@ -116,6 +142,7 @@ jQuery(document).ready( function($) {
             $.count_speed();
         }
     );
+
     $("button#count_pace").click(function (e) {
         e.preventDefault();
         $.count_pace();

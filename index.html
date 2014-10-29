@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <script type="text/javascript" src="js/jquery-1.11.1.js" rel="script"></script>
+    <script type="text/javascript" src="js/jquery-ui.js" rel="script"></script>
     <script type="text/javascript" src="js/bootstrap.min.js" rel="script"></script>
     <script type="text/javascript" src="js/count.js" rel="script"></script>
+    <script type="text/javascript" src="js/commons.js" rel="script"></script>
     <title></title>
 </head>
 <body>
@@ -18,6 +21,7 @@
 
 // ]]>
 </script>
+<div class="entry-content post-body">
     <div class="container-fluid">
         <div class="row distance">
             <form class="form-horizontal" method="post" role="form">
@@ -118,11 +122,12 @@
                 </div>
             </div>
         </div><!-- reset .row -->
-        <div class="footer">
-            Aby obliczyć prędkość i tempo pokonanego dystansu, wprowadź jego długość i czas w jakim został on pokonany.
-            Formularz automatycznie przeliczy dane, nie musisz klikać przycisku.
-            Możesz także przeliczyć prędkość na tempo, tempo na prędkość oraz prędkość lub tempo na czas w jakim pozostanie pokanany dystans.
-        </div>
     </div> <!-- .container -->
+    <p>
+        Aby obliczyć prędkość i tempo pokonanego dystansu<span class="footnote">Dystans możesz rozdzielać spacjami i zakończyć sufiksem <strong>k</strong> lub <strong>km</strong></span>, wprowadź jego długość i czas w jakim został on pokonany.
+        Formularz automatycznie przeliczy dane, nie musisz klikać przycisku.
+        Możesz także przeliczyć prędkość na tempo, tempo na prędkość oraz prędkość lub tempo na czas w jakim pozostanie pokanany dystans.
+    </p>
+</div>
 </body>
 </html>
