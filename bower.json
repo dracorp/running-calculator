@@ -1,0 +1,22 @@
+{
+  "name": "running-calculator",
+  "version": "0.1",
+  "homepage": "https://github.com/dracorp/running-calculator",
+  "authors": [
+    "Piotr Rogoża <piotr.r.public@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.0",
+    "jquery-ui": "~1.11.2"
+  }
+}

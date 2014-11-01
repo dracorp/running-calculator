@@ -1,2 +1,8 @@
 .idea/
-components/
+components/*
+!components/bootstrap/
+components/bootstrap/*
+!components/bootstrap/dist/
+!components/jquery/
+components/jquery/*
+!components/jquery/dist/
