@@ -1,12 +1,10 @@
 jQuery(document).ready(function() {
-
-
     // add div.footer to the end of content of post
     $(".post-body.entry-content").append('<div id="footer"></div>');
 
     // external links
     $('a').filter(function() {
-        return this.hostname && this.hostname != location.hostname;
+        return this.hostname && this.hostname !== location.hostname;
     }).addClass('external').attr({
         rel: 'external'
     });
@@ -54,9 +52,13 @@ jQuery(document).ready(function() {
         $('.reference').removeClass('reference');
         $(id).addClass('reference');
     });
-    $('a.context').hover(function(){
+
+    $('a.context').each(function(index){
         var id = $(this).attr('href');
-        var tooltip = $(id +' span.footnote').text();
-        $(this).attr("title",tooltip);
+        var title = $(id +' span.footnote').html();
+        $(this).attr("title",title);
+        $(this).tooltip({
+            html: true
+        });
     });
 });
