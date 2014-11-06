@@ -1,7 +1,7 @@
 {
-  "name": "running-calculator",
+  "name": "dracorp.blogspot.com",
   "version": "0.1",
-  "homepage": "https://github.com/dracorp/running-calculator",
+  "homepage": "https://github.com/dracorp/dracorp.blogstop.com",
   "authors": [
     "Piotr Rogoża <piotr.r.public@gmail.com>"
   ],
@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.0",
-    "jquery-ui": "~1.11.2"
+    "bootstrap": "~3.3.0"
   }
 }
