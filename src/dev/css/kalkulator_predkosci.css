@@ -1,0 +1,8 @@
+/* font for addon label */
+span.input-group-addon {
+    font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
+}
+/* hide br on page */
+br {
+    display: none;
+}

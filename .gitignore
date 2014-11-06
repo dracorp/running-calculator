@@ -1,8 +1,5 @@
 .idea/
-components/*
-!components/bootstrap/
-components/bootstrap/*
-!components/bootstrap/dist/
-!components/jquery/
-components/jquery/*
-!components/jquery/dist/
+node_modules/
+components/
+dist/
+*.min.*
