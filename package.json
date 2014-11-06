@@ -4,11 +4,11 @@
   "description": "My blog on blogspot.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dracorp/dracorp.blogspot.com"
+    "url": "https://github.com/dracorp/running-calculator"
   },
   "author": "Piotr Rogoża",
   "license": "ISC",
-  "homepage": "https://github.com/dracorp/dracorp.blogspot.com",
+  "homepage": "http://dracorp.blogspot.com",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",

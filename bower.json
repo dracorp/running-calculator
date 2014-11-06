@@ -1,9 +1,9 @@
 {
   "name": "dracorp.blogspot.com",
   "version": "0.1",
-  "homepage": "https://github.com/dracorp/dracorp.blogstop.com",
+  "homepage": "https://github.com/dracorp/dracorp.blogspot.com",
   "authors": [
-    "Piotr Rogoża <piotr.r.public@gmail.com>"
+    "Piotr Rogoża <piotr.r.public[at]gmail.com>"
   ],
   "license": "MIT",
   "private": true,
