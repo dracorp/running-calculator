@@ -1,5 +1,6 @@
 .idea/
 node_modules/
 components/
+vendors/
 dist/
 *.min.*

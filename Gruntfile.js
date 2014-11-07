@@ -9,13 +9,16 @@ module.exports = function (grunt) {
     // inicjalizacja konfiguracji zadań
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        distpath: "dist",
+        distdir: "dist",
+        srcdir: "src/dev",
+        resources: "resources",
+
         uglify  : {
-            build : {
-                src     : ['**/*.js', '!**/*.min.js'],
-                cwd     : 'src/dev/js/',
-                dest    : 'src/dev/js/min/',
+            dev : {
                 expand  : true,
+                cwd     : '<%= srcdir %>/<%= resources %>/js/',
+                src     : ['**/*.js', '!**/*.min.js'],
+                dest    : '<%= srcdir %>/<%= resources %>/js/min/',
                 rename  : function (dest, src) {
                     // wyciągnij z ciągu ścieżkę do folderu
                     var folder    = src.substring(0, src.lastIndexOf('/'));
@@ -33,40 +36,44 @@ module.exports = function (grunt) {
             dev: {
                 files: [{
                     expand: true,
-                    cwd: 'dev/css/',
+                    cwd: '<%= srcdir %>/<%= resources %>/css/',
                     src: ['**/*.css', '!**/*.min.css'],
-                    dest: 'dev/css/min',
+                    dest: '<%= srcdir %>/<%= resources %>/css/min',
                     ext: '.min.css'
                 }]
             }
         },
         watch : {
             js : {
-                files : 'src/dev/js/*.js',
-                tasks   : ['uglify']
+                files : '<%= srcdir %>/<%= resources %>/js/*.js',
+                tasks   : ['uglify','copy:dist']
             },
             css : {
-                files : 'src/dev/css/*.css',
-                task : ['cssmin']
+                files : '<%= srcdir %>/<%= resources %>/css/*.css',
+                task : ['cssmin','copy:dist']
+            },
+            html: {
+                files: '<%= srcdir %>/html/*.html',
+                task: ['copy:dist']
             }
         },
         copy: {
             dist: {
                 files: [
-                    {expand: true, cwd: "src/dev/html/", src: "*.html", dest: "dist/p/"},
-                    {expand: true, cwd: "src/dev/js/min", src: "*", dest: "dist/js/"},
-                    {expand: true, cwd: "src/dev/css/min", src: "*", dest: "dist/css/"}
-                ]/*,
+                    {expand: true, cwd: "<%= srcdir %>/html/", src: "*.html", dest: "<%= distdir %>/p/"},
+                    {expand: true, cwd: "<%= srcdir %>/<%= resources %>/js/min", src: "*", dest: "<%= distdir %>/<%= resources %>/js/"},
+                    {expand: true, cwd: "<%= srcdir %>/<%= resources %>/css/min", src: "*", dest: "<%= distdir %>/<%= resources %>/css/"}
+                ],
                 options: {
                     process: function (content, srcpath) {
-                        return content.replace(/<%= pkg.name /g,"_");
+                        return content.replace(/\/src\/dev/g,"").replace(/\.js/g,".min.js").replace(/\.css/g,".min.css");
                     }
-                }*/
+                }
             },
             vendor: {
                 files: [
-                    {expand: true, cwd: "components/bootstrap/dist", src: "**/*.min.*", dest: "dist/components/bootstrap/"},
-                    {expand: true, cwd: "components/jquery/dist", src: "**/*.min.js", dest: "dist/components/jquery/"}
+                    {expand: true, cwd: "vendors/bootstrap/dist", src: "**/*.min.*", dest: "<%= distdir %>/vendors/bootstrap/dist"},
+                    {expand: true, cwd: "vendors/jquery/dist", src: "**/*.min.js", dest: "<%= distdir %>/vendors/jquery/dist"}
                 ]
             }
         },
