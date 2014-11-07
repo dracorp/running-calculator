@@ -2,9 +2,9 @@ module.exports = function (grunt) {
     'use strict';
 
     require('load-grunt-tasks')(grunt);
-    grunt.registerTask('default', ['watch']);
-
-    //grunt.registerTask('default', []);
+    grunt.registerTask('default', ['install']);
+    grunt.registerTask('install', ['uglify', 'cssmin', 'copy']);
+    grunt.registerTask('clean:install',['clean','install']);
 
     // inicjalizacja konfiguracji zadań
     grunt.initConfig({
