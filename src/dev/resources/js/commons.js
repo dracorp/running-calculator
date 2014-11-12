@@ -1,4 +1,8 @@
 jQuery(document).ready(function() {
+    var $keys = {
+        enter: 13
+    };
+
     // add div.footer to the end of content of post
     $(".post-body.entry-content").append('<div id="footer"></div>');
 
@@ -60,5 +64,21 @@ jQuery(document).ready(function() {
         $(this).tooltip({
             html: true
         });
+    });
+
+
+    /* search button and other */
+    $('input#input-search').keydown(function(e){
+        var key = e.which;
+        console.log(key);
+        if (key === $keys.enter){
+            e.preventDefault();
+            // przeslij zawartość do input.gsc-input i kliknij input.gsc-search-button
+            var searchText = $(this).val();
+            var $gscSearch = $('input.gsc-input');
+            var $gscButton = $('input.gsc-search-button');
+            $gscSearch.val(searchText);
+            $gscButton[0].click();
+        }
     });
 });

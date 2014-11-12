@@ -1,0 +1,40 @@
+/**
+ * Main CSS style for blog
+ */
+
+body {
+    color: #5a5a5a;
+    padding-top: 50px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-inner {
+    padding: 5px;
+}
+
+/* citenote, footnote when clicked */
+.reference {
+    background-color: #def
+}
+
+/* addon label with s, m, h etc. */
+span.input-group-addon {
+    font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
+}
+
+input.gsc-input {
+    color: #5a5a5a;
+}
+
+#CustomSearch1 {
+    display: none;
+}
+
+#Label1 {
+    margin-top: 0px;
+}

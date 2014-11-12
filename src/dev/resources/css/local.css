@@ -1,0 +1,8 @@
+/**
+ * Local CSS style, only for testing
+ */
+body {
+    /* simulate blog width */
+    width: 803px;
+    border: 1px solid black;
+}

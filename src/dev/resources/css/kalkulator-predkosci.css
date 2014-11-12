@@ -1,3 +1,7 @@
+/**
+ * CSS style for kalkulator-predkosci-i-tempa.html
+ */
+
 /* font for addon label */
 span.input-group-addon {
     font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;

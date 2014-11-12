@@ -50,11 +50,11 @@ module.exports = function (grunt) {
             },
             css : {
                 files : '<%= srcdir %>/<%= resources %>/css/*.css',
-                task : ['cssmin','copy:dist']
+                tasks : ['cssmin','copy:dist']
             },
             html: {
                 files: '<%= srcdir %>/html/*.html',
-                task: ['copy:dist']
+                tasks: ['copy:dist']
             }
         },
         copy: {
