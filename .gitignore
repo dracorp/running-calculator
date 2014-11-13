@@ -2,5 +2,6 @@
 node_modules/
 components/
 vendors/
-dist/
-*.min.*
+dist/*
+src/**/min/
+!dist/resources/*
